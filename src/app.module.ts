@@ -13,8 +13,8 @@ import {UserController} from './user/user.controller';
     ConfigModule.forRoot(),
     MongooseModule.forRoot(`${process.env.DATABASE_URI}/${process.env.DB_NAME}`),
   ],
-  controllers: [AppController, UserController],
-  providers: [AppService, UserService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {
 }

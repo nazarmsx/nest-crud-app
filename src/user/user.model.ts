@@ -21,4 +21,4 @@ export class User {
   registerDate: Date;
 }
 
-export const UserDocument = SchemaFactory.createForClass(User);
+export const UserSchema = SchemaFactory.createForClass(User);
