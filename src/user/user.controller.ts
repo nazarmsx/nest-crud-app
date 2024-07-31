@@ -18,7 +18,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  async createStudent(
+  async сreateUser(
     @Res() response,
     @Body() createUserDto: CreateUserDto,
   ) {
@@ -27,20 +27,19 @@ export class UserController {
         createUserDto,
       );
       return response.status(HttpStatus.CREATED).json({
-        message: 'User has been created successfully',
-        newUser,
+        user: newUser
       });
     } catch (err) {
       return response.status(HttpStatus.BAD_REQUEST).json({
         statusCode: 400,
-        message: 'Error: Student not created!',
+        message: 'Error: User not created!',
         error: 'Bad Request',
       });
     }
   }
 
   @Put('/:id')
-  async updateStudent(
+  async updateUser(
     @Res() response,
     @Param('id') userId: string,
     @Body() updateUserDto: UpdateUserDto,
@@ -51,21 +50,19 @@ export class UserController {
         updateUserDto,
       );
       return response.status(HttpStatus.OK).json({
-        message: 'User has been successfully updated',
-        user,
+        user
       });
     } catch (err) {
       return response.status(err.status).json(err.response);
     }
   }
 
-  @Get()
-  async getStudents(@Res() response) {
+  @Get('users')
+  async getUsers(@Res() response) {
     try {
-      const studentData = await this.userService.getAllUsers();
+      const users = await this.userService.getAllUsers();
       return response.status(HttpStatus.OK).json({
-        message: 'All students data found successfully',
-        studentData,
+        users
       });
     } catch (err) {
       return response.status(err.status).json(err.response);
@@ -77,8 +74,7 @@ export class UserController {
     try {
       const user = await this.userService.getUser(userId);
       return response.status(HttpStatus.OK).json({
-        message: 'Student found successfully',
-        user,
+        user
       });
     } catch (err) {
       return response.status(err.status).json(err.response);
@@ -89,10 +85,7 @@ export class UserController {
   async deleteStudent(@Res() response, @Param('id') userId: string) {
     try {
       const deletedStudent = await this.userService.deleteUser(userId);
-      return response.status(HttpStatus.OK).json({
-        message: 'User deleted successfully',
-        deletedStudent,
-      });
+      return response.status(HttpStatus.OK).end();
     } catch (err) {
       return response.status(err.status).json(err.response);
     }

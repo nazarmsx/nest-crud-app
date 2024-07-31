@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo:5.0.2
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    volumes:
+      - db:/data/db
+  nest-crud-app:
+    depends_on:
+      - mongodb
+    image: nest-crud-app
+    ports:
+      - 3000:3000
+    environment:
+      - DATABASE_URI=mongodb://mongodb:27017
+      - DB_NAME=crud-app
+    stdin_open: true
+    tty: true
+
+volumes:
+  db:
