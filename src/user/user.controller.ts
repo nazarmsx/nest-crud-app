@@ -23,12 +23,12 @@ export class UserController {
     @Body() createUserDto: CreateUserDto,
   ) {
     try {
-      const newStudent = await this.userService.createUser(
+      const newUser = await this.userService.createUser(
         createUserDto,
       );
       return response.status(HttpStatus.CREATED).json({
         message: 'User has been created successfully',
-        newStudent,
+        newUser,
       });
     } catch (err) {
       return response.status(HttpStatus.BAD_REQUEST).json({
