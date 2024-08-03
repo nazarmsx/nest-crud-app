@@ -13,11 +13,11 @@ import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserService } from '../services/user.service';
 
-@Controller('user')
+@Controller()
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post()
+  @Post('user')
   async сreateUser(
     @Res() response,
     @Body() createUserDto: CreateUserDto,
@@ -38,7 +38,7 @@ export class UserController {
     }
   }
 
-  @Put('/:id')
+  @Put('user/:id')
   async updateUser(
     @Res() response,
     @Param('id') userId: string,
@@ -69,7 +69,7 @@ export class UserController {
     }
   }
 
-  @Get('/:id')
+  @Get('user/:id')
   async getStudent(@Res() response, @Param('id') userId: string) {
     try {
       const user = await this.userService.getUser(userId);
@@ -81,11 +81,11 @@ export class UserController {
     }
   }
 
-  @Delete('/:id')
+  @Delete('user/:id')
   async deleteStudent(@Res() response, @Param('id') userId: string) {
     try {
       const deletedStudent = await this.userService.deleteUser(userId);
-      return response.status(HttpStatus.OK).end();
+      return response.status(HttpStatus.OK).json();
     } catch (err) {
       return response.status(err.status).json(err.response);
     }
