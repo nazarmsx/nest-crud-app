@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nest-crud-app
+spec:
+  selector:
+    matchLabels:
+      app: hello
+      version: 2.0.0
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: nest-crud-app
+        version: 2.0.0
+    spec:
+      containers:
+        - name: nest-crud-app
+          image: nazarmsx/nest-crud-app:dev
+          env:
+            - name: "PORT"
+              value: "3000"
+            - name: "DATABASE_URI"
+              value: "mongodb://mongodb:27017"
+            - name: "DB_NAME"
+              value: "crud-app"
