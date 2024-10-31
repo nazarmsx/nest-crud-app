@@ -16,3 +16,6 @@ README.md
 .eslintrc.js
 nodemon.json
 nodemon.json
+secrets
+.idea
+.github
