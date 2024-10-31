@@ -1,3 +1,5 @@
+version: '3.9'
+
 services:
   mongodb:
     image: mongo:5.0.2
@@ -15,8 +17,30 @@ services:
     environment:
       - DATABASE_URI=mongodb://mongodb:27017
       - DB_NAME=crud-app
+      - FIREBASE_TYPE=service_account
+      - FIREBASE_PROJECT_ID=import-dd414
+      - FIREBASE_CLIENT_ID=101895852979110257374
+      - FIREBASE_UTH_URI=https://accounts.google.com/o/oauth2/auth
+      - FIREBASE_TOKEN_URI=https://oauth2.googleapis.com/token
+      - FIREBASE_AUTH_CERT_URL=https://www.googleapis.com/oauth2/v1/certs
+      - FIREBASE_CLIENT_CERT_URL=https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-plseb%40import-dd414.iam.gserviceaccount.com
+      - FIREBASE_UNIVERSAL_DOMAIN=googleapis.com
+      - FIREBASE_PRIVATE_KEY_ID=${FIREBASE_PRIVATE_KEY_ID}
+      - FIREBASE_PRIVATE_KEY=${FIREBASE_PRIVATE_KEY}
+      - FIREBASE_CLIENT_EMAIL=${FIREBASE_CLIENT_EMAIL}
+    secrets:
+       - firebase_private_key_id
+       - firebase_private_key
+       - firebase_client_email
     stdin_open: true
     tty: true
 
+secrets:
+  firebase_private_key_id:
+    file: ./secrets/firebase_private_key_id
+  firebase_private_key:
+    file: ./secrets/firebase_private_key
+  firebase_client_email:
+    file: ./secrets/firebase_client_email
 volumes:
   db:
