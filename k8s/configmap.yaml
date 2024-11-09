@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nest-crud-app-config
+  namespace: default
+data:
+  PORT: "3000"
+  DATABASE_URI: "mongodb://mongo:27017"
+  DB_NAME: "crud-app"
+  FIREBASE_TYPE: "service_account"
+  FIREBASE_PROJECT_ID: "import-dd414"
+  FIREBASE_CLIENT_ID: "101895852979110257374"
+  FIREBASE_UTH_URI: "https://accounts.google.com/o/oauth2/auth"
+  FIREBASE_TOKEN_URI: "https://oauth2.googleapis.com/token"
+  FIREBASE_AUTH_CERT_URL: "https://www.googleapis.com/oauth2/v1/certs"
+  FIREBASE_CLIENT_CERT_URL: "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-plseb%40import-dd414.iam.gserviceaccount.com"
+  FIREBASE_UNIVERSAL_DOMAIN: "googleapis.com"
