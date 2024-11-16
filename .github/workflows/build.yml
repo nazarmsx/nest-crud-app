@@ -2,14 +2,13 @@ name: Deploy to Amazon ECS
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "master" ]
 
 jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    environment: dev
+    environment: production
 
     steps:
       - name: Checkout
