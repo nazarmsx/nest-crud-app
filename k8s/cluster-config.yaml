@@ -6,8 +6,25 @@ metadata:
   region: us-east-1
 
 managedNodeGroups:
-  - name: ManagedNG-1
+  - name: eks-mng
+    instanceType: t3.medium
     desiredCapacity: 1
-    instanceType: t3.small
-    ssh:
-      enableSsm: true
+
+iam:
+  withOIDC: true
+  serviceAccounts:
+  - metadata:
+      name: aws-load-balancer-controller
+      namespace: kube-system
+    wellKnownPolicies:
+      awsLoadBalancerController: true
+
+addons:
+  - name: aws-ebs-csi-driver
+    wellKnownPolicies: 
+      ebsCSIController: true
+
+cloudWatch:
+ clusterLogging:
+   enableTypes: ["*"]
+   logRetentionInDays: 1

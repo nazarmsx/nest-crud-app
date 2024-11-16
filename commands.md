@@ -6,4 +6,6 @@ kubectl delete --all deployments
 kubectl create -f configmap.yaml
 kubectl logs deployment/nest-crud-api
 kubectl create -f secrets/secret.yaml
+aws eks update-kubeconfig --region us-east-1 --name web-quickstart
+
 ```
