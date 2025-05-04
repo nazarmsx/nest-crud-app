@@ -3,9 +3,7 @@ import { UserSchema, User} from './user.model';
 import {UserService} from '../services/user.service';
 import {UserController} from './user.controller';
 import {FirebaseAdminModule} from '../firebase-admin/firebase-admin.module'
-import {
-  MongooseModule
-} from '@nestjs/mongoose';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
