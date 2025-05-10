@@ -26,6 +26,7 @@ export class UserService {
     if (!existingUser) {
       throw new NotFoundException(`Student #${userId} not found`);
     }
+
     return existingUser;
   }
 
@@ -34,6 +35,7 @@ export class UserService {
     if (!users || users.length == 0) {
       throw new NotFoundException('Users data not found!');
     }
+
     return users;
   }
 
@@ -42,6 +44,7 @@ export class UserService {
     if (!user) {
       throw new NotFoundException(`User #${userId} not found`);
     }
+
     return user;
   }
 
@@ -50,6 +53,7 @@ export class UserService {
     if (!userToDelete) {
       throw new NotFoundException(`User #${userId} not found`);
     }
+    
     return userToDelete;
   }
 }

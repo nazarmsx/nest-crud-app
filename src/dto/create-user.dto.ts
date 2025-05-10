@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsEmail, IsString, MaxLength, MinLength, IsAlphanumeric, IsDateString } from 'class-validator';
+
 export class CreateUserDto {
   @IsString()
   @MaxLength(50)
