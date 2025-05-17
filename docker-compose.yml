@@ -51,11 +51,6 @@ services:
     depends_on:
       - prometheus
     restart: always
-  web_server:
-    image: httpd:2.4
-    ports:
-      - '80:80'
-    restart: always    
 
 secrets:
   firebase_private_key_id:
