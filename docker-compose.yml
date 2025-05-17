@@ -13,10 +13,11 @@ services:
       - mongodb
     image: nest-crud-app
     ports:
-      - 3000:3000
+      - 4000:4000
     environment:
       - DATABASE_URI=mongodb://mongodb:27017
       - DB_NAME=crud-app
+      - PORT=4000
       - FIREBASE_TYPE=service_account
       - FIREBASE_PROJECT_ID=import-dd414
       - FIREBASE_CLIENT_ID=101895852979110257374
@@ -34,6 +35,27 @@ services:
        - firebase_client_email
     stdin_open: true
     tty: true
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - '9090:9090'
+    volumes:
+      - ./prometheus:/etc/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    restart: always
+  grafana:
+    image: grafana/grafana
+    ports:
+      - '3000:3000'
+    depends_on:
+      - prometheus
+    restart: always
+  web_server:
+    image: httpd:2.4
+    ports:
+      - '80:80'
+    restart: always    
 
 secrets:
   firebase_private_key_id:
