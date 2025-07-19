@@ -1,31 +1,23 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpStatus,
-  Param,
-  Post,
-  Put,
-  Res
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserService } from '../services/user.service';
-import {FirebaseRepository} from '../firebase-admin/firebase.repository';
+import { FirebaseRepository } from '../firebase-admin/firebase.repository';
 import * as bcrypt from 'bcrypt';
 
 @Controller()
 export class UserController {
-  constructor(private readonly userService: UserService,
-              private readonly firebaseRepository: FirebaseRepository) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly firebaseRepository: FirebaseRepository,
+  ) {}
 
   @Get('users')
   async getUsers(@Res() response) {
     try {
       const users = await this.userService.getAllUsers();
       return response.status(HttpStatus.OK).json({
-        users
+        users,
       });
     } catch (err) {
       return response.status(err.status).json(err.response);
@@ -33,19 +25,13 @@ export class UserController {
   }
 
   @Post('user')
-  async createUser(
-    @Res() response,
-    @Body() createUserDto: CreateUserDto,
-  ) {
+  async createUser(@Res() response, @Body() createUserDto: CreateUserDto) {
     try {
-
       const salt = await bcrypt.genSalt();
       const password = 'random_password';
       createUserDto.password = await bcrypt.hash(password, salt);;
       createUserDto.salt = salt;
-      const newUser = await this.userService.createUser(
-        createUserDto,
-      );
+      const newUser = await this.userService.createUser(createUserDto);
       return response.status(HttpStatus.CREATED).json({
         user: newUser
       });
@@ -59,16 +45,9 @@ export class UserController {
   }
 
   @Put('user/:id')
-  async updateUser(
-    @Res() response,
-    @Param('id') userId: string,
-    @Body() updateUserDto: UpdateUserDto,
-  ) {
+  async updateUser(@Res() response, @Param('id') userId: string, @Body() updateUserDto: UpdateUserDto) {
     try {
-      const user = await this.userService.updateUser(
-        userId,
-        updateUserDto,
-      );
+      const user = await this.userService.updateUser(userId, updateUserDto);
       return response.status(HttpStatus.OK).json({
         user
       });
@@ -95,7 +74,7 @@ export class UserController {
   @Delete('user/:id')
   async deleteUser(@Res() response, @Param('id') userId: string) {
     try {
-      const deletedUser = await this.userService.deleteUser(userId);
+      await this.userService.deleteUser(userId);
       return response.status(HttpStatus.OK).json();
     } catch (err) {
       return response.status(err.status).json(err.response);
@@ -113,6 +92,4 @@ export class UserController {
       return response.status(err.status).json(err.response);
     }
   }
-
-
 }

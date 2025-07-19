@@ -6,7 +6,6 @@ describe('UserController', () => {
   let userController: UserController;
   let userService: UserService;
 
-
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
       controllers: [UserController],

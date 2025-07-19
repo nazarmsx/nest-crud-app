@@ -15,7 +15,7 @@ describe('UserController', () => {
   });
 
   describe('findAll', () => {
-    it('should return an array of cats', async () => {
+    it('should return an array of users', async () => {
       const result = ['test'] as any;
       jest.spyOn(firebase, 'getUsers').mockImplementation(() => result);
       expect(await firebase.getUsers()).toBe(result);

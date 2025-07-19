@@ -14,23 +14,21 @@ import { PrometheusModule } from '@willsoto/nestjs-prometheus';
     MongooseModule.forRoot(`${process.env.DATABASE_URI}/${process.env.DB_NAME}`),
     PrometheusModule.register({
       defaultLabels: {
-        app: 'Nest.js Crud App',
+        app: 'Nest.js Crud App'
       },
       pushgateway: {
-        url: "http://127.0.0.1:9091",
-      },
+        url: 'http://127.0.0.1:9091'
+      }
     })
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService]
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(VersionMiddleware)
-      .forRoutes({
-        path: '*',
-        method: RequestMethod.ALL,
-      });
-    }
+    consumer.apply(VersionMiddleware).forRoutes({
+      path: '*',
+      method: RequestMethod.ALL
+    });
+  }
 }

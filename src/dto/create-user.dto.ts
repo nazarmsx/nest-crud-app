@@ -29,5 +29,4 @@ export class CreateUserDto {
   firebaseUid: string;
 
   salt: string;
-
 }
